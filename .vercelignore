@@ -1,0 +1,6 @@
+backend/
+*.md
+.env
+.env.example
+node_modules/
+.git/
