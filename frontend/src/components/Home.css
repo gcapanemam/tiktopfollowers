@@ -1,0 +1,130 @@
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff0050, #ff4081, #e91e63);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.home-content {
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.home-content h1 {
+  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.home-content p {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.tiktok-login-btn {
+  background: linear-gradient(45deg, #ff0050, #ff4081);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 15px rgba(255, 0, 80, 0.3);
+}
+
+.tiktok-login-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 0, 80, 0.4);
+}
+
+.tiktok-login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  border-left: 4px solid #c62828;
+}
+
+.features {
+  text-align: left;
+  margin-bottom: 30px;
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 15px;
+}
+
+.features h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features li {
+  padding: 8px 0;
+  color: #555;
+  font-size: 1rem;
+}
+
+.info-section {
+  text-align: left;
+  background: #e3f2fd;
+  padding: 25px;
+  border-radius: 15px;
+}
+
+.info-section h3 {
+  color: #1976d2;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+}
+
+.info-section ol {
+  color: #555;
+  padding-left: 20px;
+}
+
+.info-section li {
+  padding: 5px 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    padding: 30px 20px;
+    margin: 10px;
+  }
+  
+  .home-content h1 {
+    font-size: 2rem;
+  }
+  
+  .tiktok-login-btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+}

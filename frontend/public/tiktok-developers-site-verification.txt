@@ -1,0 +1,14 @@
+# TikTok Developers Site Verification File
+# Este arquivo é usado para verificar a propriedade do domínio no TikTok Developer Portal
+# Substitua o conteúdo abaixo pelo código de verificação fornecido pelo TikTok
+
+YOUR_VERIFICATION_CODE_HERE
+
+# Instruções:
+# 1. Acesse o TikTok Developer Portal
+# 2. Vá para as configurações da sua aplicação
+# 3. Encontre a seção de verificação de domínio
+# 4. Copie o código de verificação fornecido
+# 5. Substitua 'YOUR_VERIFICATION_CODE_HERE' pelo código real
+# 6. Salve este arquivo
+# 7. O arquivo estará disponível em: http://localhost:3000/tiktok-developers-site-verification.txt
