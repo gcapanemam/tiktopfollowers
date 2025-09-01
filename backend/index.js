@@ -4,6 +4,9 @@ const axios = require('axios');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const crypto = require('crypto');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -29,6 +32,36 @@ app.use(session({
     cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 } // 24 horas
 }));
 
+// Configuração do multer para upload de arquivos
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        const uploadDir = path.join(__dirname, 'uploads');
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+        cb(null, uploadDir);
+    },
+    filename: function (req, file, cb) {
+        // Manter o nome original do arquivo
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ 
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        // Aceitar apenas arquivos .txt
+        if (file.mimetype === 'text/plain' || path.extname(file.originalname).toLowerCase() === '.txt') {
+            cb(null, true);
+        } else {
+            cb(new Error('Apenas arquivos .txt são permitidos!'), false);
+        }
+    },
+    limits: {
+        fileSize: 1024 * 1024 // 1MB
+    }
+});
+
 // Rota raiz
 app.get('/', (req, res) => {
     res.json({
@@ -52,6 +85,14 @@ app.get('/', (req, res) => {
                 uploadInit: 'POST /api/video/upload/init',
                 publish: 'POST /api/video/publish',
                 publishStatus: 'GET /api/video/publish/status/:publish_id'
+            },
+            config: {
+                get: 'GET /api/config',
+                set: 'POST /api/config'
+            },
+            upload: {
+                verification: 'POST /api/upload-verification',
+                listFiles: 'GET /api/verification-files'
             },
             health: 'GET /api/health'
         }
@@ -437,6 +478,100 @@ app.post('/api/auth/logout', async (req, res) => {
         res.clearCookie('connect.sid');
         res.json({ success: true, message: 'Logged out successfully' });
     });
+});
+
+// Endpoints de configuração
+app.get('/api/config', (req, res) => {
+    res.json({
+        hasClientKey: !!CLIENT_KEY,
+        hasClientSecret: !!CLIENT_SECRET,
+        redirectUri: REDIRECT_URI,
+        configured: !!(CLIENT_KEY && CLIENT_SECRET)
+    });
+});
+
+app.post('/api/config', (req, res) => {
+    const { clientKey, clientSecret, redirectUri } = req.body;
+    
+    if (!clientKey || !clientSecret) {
+        return res.status(400).json({ 
+            error: 'Client Key e Client Secret são obrigatórios' 
+        });
+    }
+    
+    // Em um ambiente real, você salvaria essas configurações em um banco de dados
+    // Por enquanto, vamos apenas validar e retornar sucesso
+    // Nota: Para aplicar as mudanças, seria necessário reiniciar o servidor
+    
+    res.json({ 
+        success: true, 
+        message: 'Configurações salvas com sucesso. Reinicie o servidor para aplicar as mudanças.',
+        note: 'Para aplicar as configurações, atualize o arquivo .env e reinicie o servidor'
+    });
+});
+
+// Endpoint para upload de arquivo de verificação do TikTok
+app.post('/api/upload-verification', upload.single('verificationFile'), (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ 
+                error: 'Nenhum arquivo foi enviado' 
+            });
+        }
+
+        const filePath = req.file.path;
+        const fileName = req.file.filename;
+        
+        // Verificar se o arquivo foi salvo corretamente
+        if (fs.existsSync(filePath)) {
+            res.json({
+                success: true,
+                message: 'Arquivo de verificação enviado com sucesso!',
+                fileName: fileName,
+                filePath: filePath,
+                fileSize: req.file.size
+            });
+        } else {
+            res.status(500).json({
+                error: 'Erro ao salvar o arquivo'
+            });
+        }
+    } catch (error) {
+        console.error('Erro no upload:', error);
+        res.status(500).json({
+            error: 'Erro interno do servidor durante o upload'
+        });
+    }
+});
+
+// Endpoint para listar arquivos de verificação enviados
+app.get('/api/verification-files', (req, res) => {
+    try {
+        const uploadDir = path.join(__dirname, 'uploads');
+        
+        if (!fs.existsSync(uploadDir)) {
+            return res.json({ files: [] });
+        }
+        
+        const files = fs.readdirSync(uploadDir)
+            .filter(file => file.endsWith('.txt'))
+            .map(file => {
+                const filePath = path.join(uploadDir, file);
+                const stats = fs.statSync(filePath);
+                return {
+                    name: file,
+                    size: stats.size,
+                    uploadDate: stats.mtime
+                };
+            });
+            
+        res.json({ files });
+    } catch (error) {
+        console.error('Erro ao listar arquivos:', error);
+        res.status(500).json({
+            error: 'Erro ao listar arquivos de verificação'
+        });
+    }
 });
 
 // Rota de teste

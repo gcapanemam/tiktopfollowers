@@ -4,6 +4,8 @@ import './App.css';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import AuthCallback from './components/AuthCallback';
+import Config from './components/Config';
+import FileUpload from './components/FileUpload';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
+          <Route path="/config" element={<Config />} />
+          <Route path="/upload" element={<FileUpload />} />
         </Routes>
       </div>
     </Router>

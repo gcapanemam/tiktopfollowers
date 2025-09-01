@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css';
 
@@ -60,11 +61,28 @@ const Home: React.FC = () => {
         <div className="info-section">
           <h3>Como funciona:</h3>
           <ol>
+            <li>Configure suas credenciais do TikTok</li>
             <li>Clique em "Conectar com TikTok"</li>
             <li>Faça login na sua conta TikTok</li>
             <li>Autorize o acesso às suas informações</li>
             <li>Seja redirecionado para o dashboard</li>
           </ol>
+        </div>
+        
+        <div className="config-section">
+          <h3>Configuração:</h3>
+          <p>Antes de usar a aplicação, configure suas credenciais do TikTok.</p>
+          <Link to="/config" className="config-link">
+            ⚙️ Configurar Credenciais do TikTok
+          </Link>
+        </div>
+        
+        <div className="upload-section">
+          <h3>Verificação de Domínio:</h3>
+          <p>Faça upload do arquivo de verificação gerado pelo TikTok Developer Portal.</p>
+          <Link to="/upload" className="upload-link">
+            📁 Upload de Arquivo de Verificação
+          </Link>
         </div>
       </div>
     </div>

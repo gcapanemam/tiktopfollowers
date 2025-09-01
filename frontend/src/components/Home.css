@@ -113,6 +113,83 @@
   line-height: 1.5;
 }
 
+.config-section {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 30px;
+  border: 1px solid #e9ecef;
+}
+
+.config-section h3 {
+  color: #1976d2;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.config-section p {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.config-link {
+  display: inline-block;
+  background: linear-gradient(45deg, #28a745, #20c997);
+  color: white;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+}
+
+.config-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+}
+
+/* Seção de Upload */
+.upload-section {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  margin-top: 30px;
+  border: 1px solid #e9ecef;
+}
+
+.upload-section h3 {
+  color: #6f42c1;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.upload-section p {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.upload-link {
+  display: inline-block;
+  background: linear-gradient(45deg, #6f42c1, #8e44ad);
+  color: white;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(111, 66, 193, 0.3);
+}
+
+.upload-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(111, 66, 193, 0.4);
+  text-decoration: none;
+  color: white;
+}
+
 @media (max-width: 768px) {
   .home-content {
     padding: 30px 20px;
@@ -126,5 +203,14 @@
   .tiktok-login-btn {
     padding: 12px 30px;
     font-size: 1rem;
+  }
+  
+  .config-section {
+    padding: 15px;
+  }
+  
+  .config-link {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 }
